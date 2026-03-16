@@ -1,0 +1,174 @@
+/* STILI GENERALI (reset minimo + tipografia) */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins", Arial, sans-serif;
+  color: #111;
+  line-height: 1.5;
+
+  /* Sfondo a tema sostenibilità: immagine fissa e adattata allo schermo */
+  background-image: url("img/sfondo.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* Contenitore principale: limita la larghezza e centra i contenuti */
+.content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 16px 40px;
+}
+
+/* HEADER (logo + titolo del report) */
+
+.site-header {
+  text-align: center;
+  padding: 26px 16px 8px;
+
+  /* Allineamento verticale degli elementi (logo e sottotitolo) */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Logo aziendale: dimensione controllata e adattabile */
+.logo {
+  width: 160px;
+  max-width: 80%;
+  margin-bottom: 12px;
+}
+
+/* “Pill” sotto il logo: evidenzia il titolo senza sembrare un pulsante */
+.subtitle-box {
+  display: flex;
+  align-items: center;      /* centro verticale del testo */
+  justify-content: center;  /* centro orizzontale del testo */
+
+  margin-top: 8px;
+  padding: 6px 14px;
+
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 999px;
+  backdrop-filter: blur(2px);
+}
+
+/* Testo del sottotitolo: leggibile sopra lo sfondo fotografico */
+.subtitle {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.55);
+}
+
+/* SEZIONI (blocchi informativi) */
+
+.card {
+  margin: 14px 0;
+  padding: 18px;
+
+  /* Stile “banda” senza bordi: lo sfondo viene creato via sfumatura */
+  border: none;
+  border-radius: 0;
+  background: transparent;
+
+  /* Necessari per gestire lo pseudo-elemento della sfumatura */
+  position: relative;
+  overflow: hidden;
+
+  /* Migliora la fluidità dell’animazione */
+  will-change: transform, opacity;
+}
+
+/* Colori delle sezioni: variabile CSS usata nella sfumatura */
+.card-green  { --c: rgba(180, 255, 190, 0.55); }
+.card-red    { --c: rgba(255, 190, 190, 0.55); }
+.card-yellow { --c: rgba(255, 245, 170, 0.60); }
+.card-blue   { --c: rgba(180, 220, 255, 0.60); }
+
+/* Titoli delle sezioni */
+.card h2 {
+  margin: 0 0 8px;
+}
+
+/* Sfumatura per i blocchi: trasparente → colore → trasparente
+   Serve per “fondere” i contenuti nello sfondo mantenendo leggibilità */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    var(--c) 3%,
+    var(--c) 97%,
+    rgba(255, 255, 255, 0) 100%
+  );
+
+  filter: blur(0.2px);
+  z-index: 0;
+}
+
+/* Il testo e i titoli devono stare sopra la sfumatura */
+.card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ANIMAZIONE (entrata dei blocchi) */
+
+/* Stato iniziale: invisibile, poi animazione in entrata */
+.animate {
+  opacity: 0;
+  animation: fadeSlideIn 1.6s ease-out forwards;
+}
+
+/* Entrata laterale: differenziata in base alla direzione */
+.card-left.animate  { transform: translateX(-120px); }
+.card-right.animate { transform: translateX(120px); }
+
+/* Animazione: il blocco arriva nella posizione naturale */
+@keyframes fadeSlideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* DOWNLOAD (pulsante PDF) */
+
+.download {
+  text-align: center;
+  margin-top: 26px;
+}
+
+/* Link stilizzato come pulsante, con buona leggibilità */
+.download-btn {
+  display: inline-block;
+  padding: 14px 18px;
+  border-radius: 14px;
+
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(6px);
+
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  color: #111;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.download-btn:hover {
+  background: rgba(255, 255, 255, 0.72);
+}
+
+/* RESPONSIVE (schermi piccoli) */
+
+@media (max-width: 700px) {
+}
